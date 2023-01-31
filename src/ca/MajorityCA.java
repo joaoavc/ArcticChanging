@@ -18,7 +18,6 @@ public class MajorityCA extends CellularAutomata {
 			}
 		}
 		setMooreNeighbors();
-		
 	}
 
 	
@@ -37,7 +36,4 @@ public class MajorityCA extends CellularAutomata {
 		}
 		return anyChanged;
 	}
-	
-	
-
 }

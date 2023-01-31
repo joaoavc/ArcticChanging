@@ -1,13 +1,19 @@
 package ecosystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import aa.Behavior;
+import aa.Eye;
+import aa.Persuit;
+import physics.Body;
 import processing.core.PApplet;
 import processing.core.PVector;
 import tools.SubPlot;
 
 public abstract class Predator extends Animal {
 	
-	private Animal favoritePrey;
-	private Population population;
+	protected Animal favoritePrey;
 
 	public Predator(PVector pos, float mass, float radius, int color, PApplet parent, SubPlot plt, Animal favoritePrey, Sex sex) {
 		super(pos, mass, radius, color, parent, plt, sex);
@@ -16,6 +22,7 @@ public abstract class Predator extends Animal {
 	
 	public Predator(Predator predator, boolean mutate, PApplet parent, SubPlot plt) {
 		super(predator, mutate, parent, plt);
+		this.favoritePrey = predator.favoritePrey;
 	}
 
 	public void eat(Terrain terrain) {	
@@ -29,6 +36,30 @@ public abstract class Predator extends Animal {
 				}
 			}
 		}
+	}
+	
+	public void pursuit() {
+		ArrayList<Behavior> behaviorsToRemove;
+		behaviorsToRemove = new ArrayList<Behavior>();
+		for(Behavior behavior : this.getBehaviors()) {
+			if(behavior instanceof Persuit) behaviorsToRemove.add(behavior);
+		}
+		this.getBehaviors().removeAll(behaviorsToRemove);
+		this.getEye().look();
+		if(this.getEye().getNearSight().size() > 0) {
+			Body body = this.getEye().getNearSight().get(0);
+			if (body.getClass().equals(favoritePrey.getClass())) {
+				this.getEye().setTarget(body);
+				this.addBehavior(new Persuit(5));
+			}	
+		}
+	}
+	
+	public void refreshPredatorVision(List<Body> seals) {
+		ArrayList<Body> trackingAnimals = new ArrayList<Body>();
+		trackingAnimals.addAll(seals); 
+		Eye eye = new Eye(this, trackingAnimals);
+		this.setEye(eye);
 	}
 
 }

@@ -1,7 +1,6 @@
 package ecosystem;
 
 import java.lang.reflect.InvocationTargetException;
-
 import java.util.Random;
 import aa.Behavior;
 import aa.Boid;
@@ -22,7 +21,6 @@ public abstract class Animal extends Boid implements IAnimal {
 	protected Sex sex;
 	protected Population population;
 
-	
 	protected Animal(PVector pos, float mass, float radius, int color, PApplet parent, SubPlot plt, Sex sex) {
 		super(pos, mass, radius, color, parent, plt);
 		this.sex = sex;
@@ -30,13 +28,11 @@ public abstract class Animal extends Boid implements IAnimal {
 	
 	protected Animal(Animal a, boolean mutate, PApplet parent, SubPlot plt) {
 		super(a.pos, a.mass, a.radius, a.color, parent, plt);
-		for(Behavior b : a.behaviors) {
-			this.addBehavior(b);
-		}
-		if(a.eye != null) {
-			eye = new Eye(this, a.eye);
-		}
+		for(Behavior b : a.behaviors) this.addBehavior(b);
+		if(a.eye != null) eye = new Eye(this, a.eye);
 		dna = new DNA(a.dna, mutate);
+		int rndNumber = (int)parent.random(0, 2);
+		this.sex = (rndNumber>0) ? Sex.MASCULINE : Sex.FEMININE;
 	}
 	
 	@Override

@@ -1,6 +1,6 @@
 package processing;
 
-import ecosystem.TestEcosystemApp;
+import arctic.ArcticApp;
 import processing.core.PApplet;
 
 @SuppressWarnings("unused")
@@ -11,7 +11,7 @@ public class ProcessingSetup extends PApplet {
 	
 	@Override
 	public void settings() {
-		  size(800, 600); 
+		  size(1060, 640); 
 	 }
 	
 	@Override
@@ -45,7 +45,7 @@ public class ProcessingSetup extends PApplet {
 	}
 	 
 	 public static void main(String[] args) {
-		 app = new TestEcosystemApp();
+		 app = new ArcticApp();
 		 PApplet.main("processing.ProcessingSetup"); 
 	 }	 
 }

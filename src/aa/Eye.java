@@ -61,5 +61,9 @@ public class Eye {
 	private boolean nearSight(PVector t) {
 		return inSight(t, me.dna.visionDistance, (float)Math.PI);
 	}
+	
+	public void setTarget(Body body) {
+		this.target = body;
+	}
 
 }

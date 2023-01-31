@@ -3,48 +3,23 @@ package ecosystem;
 import java.util.ArrayList;
 import java.util.List;
 
-import aa.AvoidObstacle;
-import aa.Eye;
-import aa.Wander;
-import ecosystem.Animal.Sex;
-import physics.Body;
 import processing.core.PApplet;
-import processing.core.PVector;
 import tools.SubPlot;
 
 public class Population {
-	private List<Animal> allAnimals;
+	protected List<Animal> allAnimals;
 	private double[] window;
-	private boolean mutate;
 	
 	public Population(PApplet parent, SubPlot plt, Terrain terrain) {
-		window = plt.getWindow();
+		setWindow(plt.getWindow());
 		allAnimals = new ArrayList<Animal>();
-		List<Body> obstacles = terrain.getObstacles();
-		for(int i=0;i<WorldConstants.INI_PREY_POPULATION_WITHOUT_MASK;i++) {
-			PVector pos = new PVector(parent.random((float)window[0],(float)window[1]),
-					parent.random((float)window[2],(float)window[3]));
-			int color = parent.color(
-				WorldConstants.PREY_COLOR[0],
-				WorldConstants.PREY_COLOR[1],
-				WorldConstants.PREY_COLOR[2]);
-			Sex sex;
-			if(parent.random(2)>0) sex = Sex.MASCULINE;
-			else sex = Sex.FEMININE;
-			Animal a = new Prey(pos, WorldConstants.PREY_MASS, WorldConstants.PREY_SIZE, color, parent, plt, sex);
-			a.addBehavior(new Wander(1));
-			a.addBehavior(new AvoidObstacle(30));
-			Eye eye = new Eye(a, obstacles);
-			a.setEye(eye);
-			allAnimals.add(a);
-		}
 	}
 	
 	public void update(float dt, Terrain terrain) {
 		move(terrain, dt);
 		eat(terrain);
 		energyConsumption(dt, terrain);
-		reproduce(mutate);
+		//reproduce(terrain);
 		die();
 	}
 	
@@ -73,10 +48,10 @@ public class Population {
 		}
 	}
 	
-	private void reproduce(boolean mutate) {
+	private void reproduce(Terrain terrain) {
 		for(int i=allAnimals.size()-1; i>=0; i-- ) {
 			Animal a = allAnimals.get(i);
-			Animal child = a.reproduce(mutate);
+			Animal child = a.reproduce(terrain);
 			if(child != null)
 				allAnimals.add(child);
 		}
@@ -120,5 +95,13 @@ public class Population {
 		sums[0] /= allAnimals.size();
 		sums[1] /= allAnimals.size();
 		return sums;
+	}
+
+	public double[] getWindow() {
+		return window;
+	}
+
+	public void setWindow(double[] window) {
+		this.window = window;
 	}
 }

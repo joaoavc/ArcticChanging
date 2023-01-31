@@ -1,17 +1,13 @@
 package ecosystem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.MajorityCA;
-import physics.Body;
 import processing.core.PApplet;
 import tools.SubPlot;
 
 public class Terrain extends MajorityCA {
 
-	public Terrain(PApplet p, SubPlot plt) {
-		super(p, plt, WorldConstants.NROWS, WorldConstants.NCOLS, WorldConstants.NSTATES, 1);
+	public Terrain(PApplet p, SubPlot plt, int nrows, int ncols, int nstates, int i) {
+		super(p, plt, nrows, ncols, nstates, i);
 	}
 
 	@Override
@@ -27,19 +23,8 @@ public class Terrain extends MajorityCA {
 		setMooreNeighbors();
 	}
 	
-	public List<Body>getObstacles(){
-		List<Body>bodies = new ArrayList<Body>();
-		for(int i=0;i<nrows;i++) {
-			for(int j=0;j<ncols;j++) {
-				if(cells[i][j].getState() == WorldConstants.PatchType.OBSTACLE.ordinal()) {
-					Body b = new Body(this.getCenterCell(i,j));
-					bodies.add(b);
-				}
-			}
-		}
-		return bodies;
-	}
 	
+	/*
 	public void regenerate() {
 		for(int i= 0; i<nrows; i++) {
 			for(int j = 0; j<ncols; j++) {
@@ -47,4 +32,5 @@ public class Terrain extends MajorityCA {
 			}
 		}
 	}
+	*/
 }
