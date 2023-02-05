@@ -10,7 +10,7 @@ public class Arrive extends Behavior{
 
 	@Override
 	public PVector getDesiredVelocity(Boid me) {
-		PVector vd = PVector.sub(me.eye.target.getPos(), me.getPos());
+		PVector vd = PVector.sub(me.eye.getTarget().getPos(), me.getPos());
 		float dist = vd.mag();
 		float R = me.dna.radiusArrive;
 		if(dist < R) {

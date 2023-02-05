@@ -2,7 +2,9 @@ package ecosystem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import arctic.ArcticPopulation;
 import processing.core.PApplet;
 import tools.SubPlot;
 
@@ -19,7 +21,9 @@ public class Population {
 		move(terrain, dt);
 		eat(terrain);
 		energyConsumption(dt, terrain);
-		//reproduce(terrain);
+		Random random = new Random();
+	    boolean reproduce = random.nextBoolean();
+	    if(reproduce) reproduce(terrain);
 		die();
 	}
 	
@@ -43,7 +47,7 @@ public class Population {
 		for(int i=allAnimals.size()-1; i>=0; i-- ) {
 			Animal a = allAnimals.get(i);
 			if(a.die()) {
-				allAnimals.remove(a);
+				((ArcticPopulation)this).removeAnimal(a);
 			}
 		}
 	}
@@ -53,7 +57,7 @@ public class Population {
 			Animal a = allAnimals.get(i);
 			Animal child = a.reproduce(terrain);
 			if(child != null)
-				allAnimals.add(child);
+				 ((ArcticPopulation)this).addAnimal(child);
 		}
 	}
 	

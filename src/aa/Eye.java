@@ -2,7 +2,6 @@ package aa;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import physics.Body;
 import processing.core.PVector;
 
@@ -11,19 +10,25 @@ public class Eye {
 	private List<Body> farSight;
 	private List<Body> nearSight;
 	private Boid me;
-	protected Body target;
+	private Body target;
 	
 	public Eye(Boid me, List<Body> allTrackingBodies) {
 		this.me = me;
 		this.allTrackingBodies = allTrackingBodies;
 		if(allTrackingBodies.size() > 0)
-			target = allTrackingBodies.get(0);
+			setTarget(allTrackingBodies.get(0));
 	}
 	
 	public Eye(Boid me, Eye eye) {
 		this.allTrackingBodies = eye.allTrackingBodies;
 		this.me = me;
-		target = eye.target;
+		this.target = eye.target;
+		this.look();
+	}
+	
+	public Eye(Boid me) {
+		this.me = me;
+		this.allTrackingBodies = new ArrayList<Body>();
 	}
 	
 	public List<Body> getFarSight(){
@@ -64,6 +69,10 @@ public class Eye {
 	
 	public void setTarget(Body body) {
 		this.target = body;
+	}
+
+	public Body getTarget() {
+		return target;
 	}
 
 }

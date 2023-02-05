@@ -18,7 +18,7 @@ public class AvoidObstacle extends Behavior {
 		return vd;
 	}
 	
-	private float hasObstacle(Boid me) {
+	protected float hasObstacle(Boid me) {
 		for(Body body : me.eye.getFarSight()) {
 			PVector r = PVector.sub(body.getPos(), me.getPos());
 			PVector vd = new PVector(me.getVel().y, -me.getVel().x);

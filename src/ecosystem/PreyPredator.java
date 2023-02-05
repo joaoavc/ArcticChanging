@@ -3,10 +3,8 @@ package ecosystem;
 import java.util.ArrayList;
 import java.util.List;
 
-import aa.Behavior;
-import aa.Evade;
 import aa.Eye;
-import aa.Persuit;
+import arctic.Arctic;
 import physics.Body;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -28,6 +26,7 @@ public abstract class PreyPredator extends Animal {
 		super(preyPredator, mutate, parent, plt);
 		this.favoritePrey = preyPredator.favoritePrey;
 		this.myPredator = preyPredator.myPredator;
+		this.population = preyPredator.population;
 	}
 
 	public void eat(Terrain terrain) {	
@@ -36,53 +35,20 @@ public abstract class PreyPredator extends Animal {
 		for(Animal animal : population.getAllAnimals()) {
 			if (animal.getClass().equals(favoritePrey.getClass())) {
 				if(animal.getLocation(terrain).equals(patch)) {
-					energy+=75;
+					energy+=animal.energy;
 					animal.energy = -1;
 				}
 			}
 		}
 	}
 	
-	public void evade() {
-		ArrayList<Behavior> behaviorsToRemove;
-		behaviorsToRemove = new ArrayList<Behavior>();
-		for(Behavior behavior : this.getBehaviors()) {
-			if(behavior instanceof Evade) behaviorsToRemove.add(behavior);
-		}
-		this.getBehaviors().removeAll(behaviorsToRemove);
-		this.getEye().look();
-		if(this.getEye().getNearSight().size() > 0) {
-			Body body = this.getEye().getNearSight().get(0);
-			if (body.getClass().equals(myPredator.getClass())) {
-				this.getEye().setTarget(body);
-				this.addBehavior(new Evade(5));
-			}	
-		}
-	}
-	
-	public void pursuit() {
-		ArrayList<Behavior> behaviorsToRemove;
-		behaviorsToRemove = new ArrayList<Behavior>();
-		for(Behavior behavior : this.getBehaviors()) {
-			if(behavior instanceof Persuit) behaviorsToRemove.add(behavior);
-		}
-		this.getBehaviors().removeAll(behaviorsToRemove);
-		this.getEye().look();
-		if(this.getEye().getNearSight().size() > 0) {
-			Body body = this.getEye().getNearSight().get(0);
-			if (body.getClass().equals(favoritePrey.getClass())) {
-				this.getEye().setTarget(body);
-				this.addBehavior(new Persuit(5));
-			}	
-		}
-	}
-	
-	public void refreshPreyPredatorVision(List<Body> cods, List<Body> polarBears) {
-		ArrayList<Body> trackingAnimals = new ArrayList<Body>();
-		trackingAnimals.addAll(cods); 
-		trackingAnimals.addAll(polarBears); 
-		Eye eye = new Eye(this, trackingAnimals);
+	public void refreshPreyPredatorVision(List<Body> preys, List<Body> pradators, Terrain terrain) {
+		ArrayList<Body> tracking = new ArrayList<Body>();
+		tracking.addAll(preys); 
+		tracking.addAll(pradators); 
+		tracking.addAll(((Arctic) terrain).getIce());
+		tracking.addAll(((Arctic) terrain).getWater());
+		Eye eye = new Eye(this, tracking);
 		this.setEye(eye);
 	}
-
 }

@@ -14,9 +14,10 @@ public class CellularAutomata {
 	private int radiusNeigh;
 	protected Cell[][] cells;
 	private int[] colors;
-	protected float cellWidth;
-	protected float cellHeight;
-	protected float xmin, ymin;
+	public float cellWidth;
+	public float cellHeight;
+	public float xmin;
+	public float ymin;
 	private SubPlot plt;
 	
 	//Construtor

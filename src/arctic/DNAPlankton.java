@@ -4,21 +4,21 @@ import aa.DNA;
 
 public class DNAPlankton extends DNA {
 	
-	public final static float PLANKTON_SIZE = .2f;
+	public final static float PLANKTON_SIZE = .1f;
 	public final static float PLANKTON_MASS= 7f;
 	public final static float PLANKTON_ENERGY = 100f;
 	public final static float PLANKTON_ENERGY_TO_REPRODUCE = 50f;
-	public final static int[] SHRIMP_COLOR = {255, 255, 255};
+	public final static int[] PLANKTON_COLOR = {255, 0, 255};
 
 	
 	public DNAPlankton() {
 		//Physics
-		this.maxSpeed = random(4,8);
-		this.maxForce = random(2,4);
+		this.maxSpeed = random(2,3);
+		this.maxForce = random(1,3);
 		//Vision
-		this.visionDistance = random(4, 8);
+		this.visionDistance = random(2, 3);
 		this.visionSafeDistance = 0.25f * visionDistance;
-		this.visionAngle = (float)Math.PI/4;
+		this.visionAngle = (float)Math.PI/8;
 		//Persuit
 		this.deltaPersuit = random(0.5f, 1f);
 		//Arrive

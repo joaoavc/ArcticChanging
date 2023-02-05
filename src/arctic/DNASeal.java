@@ -4,20 +4,20 @@ import aa.DNA;
 
 public class DNASeal extends DNA{
 	
-	public final static float SEAL_SIZE = .2f;
-	public final static float SEAL_MASS= 7f;
-	public final static float SEAL_ENERGY = 100f;
-	public final static float SEAL_ENERGY_TO_REPRODUCE = 50f;
+	public final static float SEAL_SIZE = 1.8f;
+	public final static float SEAL_MASS= 15f;
+	public final static float SEAL_ENERGY = 1500f;
+	public final static float SEAL_ENERGY_TO_REPRODUCE = SEAL_ENERGY*0.25f;
 	public final static int[] SEAL_COLOR = {125,125,125};
 	
 	public DNASeal() {
 		//Physics
-		this.maxSpeed = random(4,8);
-		this.maxForce = random(2,4);
+		this.maxSpeed = random(5,9);
+		this.maxForce = random(4,8);
 		//Vision
-		this.visionDistance = random(4, 8);
+		this.visionDistance = random(4, 12);
 		this.visionSafeDistance = 0.25f * visionDistance;
-		this.visionAngle = (float)Math.PI/4;
+		this.visionAngle = (float)Math.PI/3;
 		//Persuit
 		this.deltaPersuit = random(0.5f, 1f);
 		//Arrive

@@ -4,19 +4,19 @@ import aa.DNA;
 
 public class DNACod extends DNA{
 	
-	public final static float COD_SIZE = .2f;
-	public final static float COD_MASS= 7f;
-	public final static float COD_ENERGY = 100f;
-	public final static float COD_ENERGY_TO_REPRODUCE = 50f;
+	public final static float COD_SIZE = .7f;
+	public final static float COD_MASS= 2f;
+	public final static float COD_ENERGY = 1000f;
+	public final static float COD_ENERGY_TO_REPRODUCE = COD_ENERGY*0.25f;
 	public final static int[] COD_COLOR = {255,255,255};
 
 	
 	public DNACod() {
 		//Physics
-		this.maxSpeed = random(4,8);
-		this.maxForce = random(2,4);
+		this.maxSpeed = random(3,5);
+		this.maxForce = random(2,6);
 		//Vision
-		this.visionDistance = random(4, 8);
+		this.visionDistance = random(5, 10);
 		this.visionSafeDistance = 0.25f * visionDistance;
 		this.visionAngle = (float)Math.PI/4;
 		//Persuit

@@ -3,9 +3,8 @@ package ecosystem;
 import java.util.ArrayList;
 import java.util.List;
 
-import aa.Behavior;
 import aa.Eye;
-import aa.Persuit;
+import arctic.Arctic;
 import physics.Body;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -23,6 +22,7 @@ public abstract class Predator extends Animal {
 	public Predator(Predator predator, boolean mutate, PApplet parent, SubPlot plt) {
 		super(predator, mutate, parent, plt);
 		this.favoritePrey = predator.favoritePrey;
+		this.population = predator.population;
 	}
 
 	public void eat(Terrain terrain) {	
@@ -31,35 +31,18 @@ public abstract class Predator extends Animal {
 		for(Animal animal : population.getAllAnimals()) {
 			if (animal.getClass().equals(favoritePrey.getClass())) {
 				if(animal.getLocation(terrain).equals(patch)) {
-					energy+=75;
+					energy+=animal.energy;
 					animal.energy = -1;
 				}
 			}
 		}
 	}
 	
-	public void pursuit() {
-		ArrayList<Behavior> behaviorsToRemove;
-		behaviorsToRemove = new ArrayList<Behavior>();
-		for(Behavior behavior : this.getBehaviors()) {
-			if(behavior instanceof Persuit) behaviorsToRemove.add(behavior);
-		}
-		this.getBehaviors().removeAll(behaviorsToRemove);
-		this.getEye().look();
-		if(this.getEye().getNearSight().size() > 0) {
-			Body body = this.getEye().getNearSight().get(0);
-			if (body.getClass().equals(favoritePrey.getClass())) {
-				this.getEye().setTarget(body);
-				this.addBehavior(new Persuit(5));
-			}	
-		}
-	}
-	
-	public void refreshPredatorVision(List<Body> seals) {
-		ArrayList<Body> trackingAnimals = new ArrayList<Body>();
-		trackingAnimals.addAll(seals); 
-		Eye eye = new Eye(this, trackingAnimals);
+	public void refreshPredatorVision(List<Body> pradators, Terrain terrain) {
+		ArrayList<Body> tracking = new ArrayList<Body>();
+		tracking.addAll(pradators); 
+		tracking.addAll(((Arctic) terrain).getIce());
+		Eye eye = new Eye(this, tracking);
 		this.setEye(eye);
 	}
-
 }

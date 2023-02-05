@@ -20,13 +20,13 @@ public class Boid extends Body {
 	private float sumWeights;
 	protected PApplet parent;
 	protected float phiWander;
-	protected Eye eye;
+	public Eye eye;
 
 	
 	protected Boid(PVector pos, float mass, float radius, int color, PApplet parent, SubPlot plt ) {
 		super(pos, new PVector(0, 0), mass, radius, color);
 		behaviors = new ArrayList<Behavior>();
-		this.dna = new DNA();
+		//this.dna = new DNA();
 		this.plt = plt;
 		window = this.plt.getWindow();
 		this.parent = parent;
@@ -49,6 +49,10 @@ public class Boid extends Body {
 	
 	public DNA getDNA() {
 		return this.dna;
+	}
+	
+	public void setDNA(DNA dna) {
+		this.dna = dna;
 	}
 	
 	public void setEye(Eye eye) {

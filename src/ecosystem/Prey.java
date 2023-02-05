@@ -3,8 +3,6 @@ package ecosystem;
 import java.util.ArrayList;
 import java.util.List;
 
-import aa.Behavior;
-import aa.Evade;
 import aa.Eye;
 import physics.Body;
 import processing.core.PApplet;
@@ -26,28 +24,7 @@ public abstract class Prey extends Animal{
 	
 	@Override
 	public void eat(Terrain terrain) {
-		Patch patch = (Patch)terrain.world2Cell(pos.x, pos.y);
-		if(patch.getState() == WorldConstants.PatchType.FOOD.ordinal()) {
-			energy+=WorldConstants.ENERGY_FROM_PLANT;
-			patch.setFertile();
-		}
-	}
-	
-	public void evade() {
-		ArrayList<Behavior> behaviorsToRemove;
-		behaviorsToRemove = new ArrayList<Behavior>();
-		for(Behavior behavior : this.getBehaviors()) {
-			if(behavior instanceof Evade) behaviorsToRemove.add(behavior);
-		}
-		this.getBehaviors().removeAll(behaviorsToRemove);
-		this.getEye().look();
-		if(this.getEye().getNearSight().size() > 0) {
-			Body body = this.getEye().getNearSight().get(0);
-			if (body.getClass().equals(myPredator.getClass())) {
-				this.getEye().setTarget(body);
-				this.addBehavior(new Evade(5));
-			}	
-		}
+		energy+=1;
 	}
 	
 	public void refreshPreyVision(List<Body> shrimps) {

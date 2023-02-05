@@ -4,22 +4,22 @@ import aa.DNA;
 
 public class DNAPolarBear extends DNA {
 	
-	public final static float POLAR_BEAR_SIZE = .2f;
-	public final static float POLAR_BEAR_MASS= 7f;
-	public final static float POLAR_BEAR_ENERGY = 100f;
-	public final static float POLAR_BEAR_ENERGY_TO_REPRODUCE = 50f;
+	public final static float POLAR_BEAR_SIZE = 2.2f;
+	public final static float POLAR_BEAR_MASS= 20f;
+	public final static float POLAR_BEAR_ENERGY = 2000f;
+	public final static float POLAR_BEAR_ENERGY_TO_REPRODUCE = POLAR_BEAR_ENERGY*0.25f;
 	public final static int[] POLAR_BEAR_COLOR = {255,255,255};
 
 	public DNAPolarBear() {
 		//Physics
-		this.maxSpeed = random(4,8);
-		this.maxForce = random(2,4);
+		this.maxSpeed = random(6,8);
+		this.maxForce = random(4,8);
 		//Vision
-		this.visionDistance = random(4, 8);
+		this.visionDistance = random(7, 12);
 		this.visionSafeDistance = 0.25f * visionDistance;
-		this.visionAngle = (float)Math.PI/4;
+		this.visionAngle = (float)Math.PI/2;
 		//Persuit
-		this.deltaPersuit = random(0.5f, 1f);
+		this.deltaPersuit = random(0.5f, 1.5f);
 		//Arrive
 		this.radiusArrive = random(3, 5);
 		//Wander
